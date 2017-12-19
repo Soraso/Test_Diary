@@ -5,6 +5,7 @@ use User;
 
 my $user1 = User->new(name => 'John');
 
+=pod
 # Diary class
 my $diary = $user1->add_diary(
 	name => 'John Diary.',
@@ -26,3 +27,4 @@ my $entry2 = $diary->add_entry(
 
 my $recent_entries = $diary->get_recent_entries;
 print $recent_entries->body;#'This is the body of secoundary entry'
+=cut
