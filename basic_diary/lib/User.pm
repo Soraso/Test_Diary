@@ -6,36 +6,44 @@ use warnings;
 use utf8;
 
 
-=pod
-sub add_diary{
-	my ($user,$name) = @_;
-	my $self = { name => $name}
-	$bless $self,$user;
-}
-
 sub add_entry{
-
+	my $self = shift;
+	$self->{'Title'}=$_[1];
+	$self->{'Body'}=$_[3];
+	
+	return $self;
+	
 }
+
+sub add_diary{
+	my $self = shift;
+	$self->{Name}=$_[1];
+
+	return $self;
+}
+
 
 sub get_recent_entries{
-
+	my $self = shift;
+	my $title = $self->{Title};
+	my $body = $self->{Body};
+	return ($title,$body);
 }
-=cut
-
 
 sub new{
 
 	my $class = shift;
-	my $user = shift;
 	
-	my $self = {$user => shift};
+	my $self = {User => $_[1]};
 	
-	#$self->{NAME} = undef;
-	#$self->{entry} = [];
+	$self->{Name} = undef;
+
+	$self->{Title}=undef;
+	$self->{Body}=undef;
 	
 	bless $self,$class;
-	
-	print "\nWellcome Username = ",$self->{$user}, "\n";
+	#bless @title,$class;
+	#bless @body,$class;
 	
 	return $self;
 }
