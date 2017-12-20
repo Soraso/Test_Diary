@@ -33,9 +33,10 @@ sub get_recent_entries{
 sub new{
 
 	my $class = shift;
-	
-	my $self = {User => $_[1]};
-	
+	my $self = {User => undef};
+	if(@_){
+		$self = {User => $_[1]};
+	}
 	$self->{Name} = undef;
 
 	$self->{Title}=undef;

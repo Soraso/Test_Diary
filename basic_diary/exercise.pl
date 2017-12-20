@@ -3,7 +3,7 @@ use warnings;
 
 use User;
 
-my $user1 = User->new(user => 'John');
+my $user1 = User->new(User => 'John');
 
 print "\nYour User Name is ", $user1->{User},"\n";
 
