@@ -77,6 +77,37 @@ sub find_entry_by_entry_id{
 	
 }
 
+sub delete_entry{
+
+	my ($class, $db, $entry) = @_;
+	
+	$db->query(q[
+		DELETE FROM entry
+			WHERE
+				entry_id = ?
+	], $entry->entry_id);
+	
+	print "deleted";
+
+}
+
+sub delete_entry_by_diary_id_and_entry_id{
+	my ($class, $db, $args) = @_;
+	
+	my $diary_id = $args->{diary_id}	// croak 'diary_id required';
+	my $entry_id = $args->{entry_id}	// croak 'entry_id required';
+	
+	my $entry = $class->find_entry_by_entry_id($db, +{
+		entry_id	=> $entry_id,
+	});
+	
+	return [] unless defined $entry;
+	
+	$class->delete_entry($db, $entry);
+	
+	
+}
+
 sub add_entry{
 
 	my ($class, $db, $args) = @_;
@@ -97,7 +128,9 @@ sub add_entry{
 	});
 	
 	return $newEntry;
+	
 }
+
 =put
 #今の所使われておらず
 sub find_or_add_entry_by_title{

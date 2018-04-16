@@ -20,10 +20,9 @@ use Intern::Diary::Service::Entry;
 BEGIN { $ENV{INTERN_BOOKMARK_ENV} = 'local' };
 
 my %HANDLERS = (
-	#make	=> \&make_diary,
 	add		=> \&add_entry,
 	list 	=> \&list_diaries,
-	#delete 	=> \&delete_entry,
+	delete 	=> \&delete_entry,
 	create	=> \&create_diary
 );
 
@@ -71,8 +70,6 @@ sub add_entry{
 		diary_name	=> $diary_name,
 	});
 	
-	#print ("\n", $diary->{diary_id});
-	#print ("\n", $diary->{diary_name});
 
 	my $entry = Intern::Diary::Service::Entry->add_entry($db, +{
 		diary_id	=> $diary->{diary_id},
@@ -106,20 +103,24 @@ sub list_diaries{
 		my $diary_name = $diary->{diary_name};
 		my $created = $diary->{created};
 		
-		print "\n";
-		print ( "Diary id       " , $diary_id,  "\n");
+		print "\n\n---------------------------------\n";
 		print ( "Diary Name     " , $diary_name, "\n");
+		print ( "Diary id       " , $diary_id,  "\n");
 		print ( "Created Date   " , $created, "\n");
+		print "\n\n---------------------------------\n";
 		
 		my $entries = $diary->{entry};
 		
 		for my $entry (@$entries){
-			print "\n";
-			print ( "Entry_id       ", $entry->{entry_id}, "\n");
-			print ( "Title          ", $entry->{title}, "\n");
-			print ( "Entry_body     ", $entry->{entry_body}, "\n");
-			print ( "Created Date   ", $entry->{created}, "\n");
-			print ( "Updated Date   ", $entry->{updated}, "\n");
+			if($diary_id == ($entry->{diary_id})){
+				print "\n";
+				#print ( "Diary_id       ", $entry->{diary_id}, "\n");
+				print ( "Entry_id       ", $entry->{entry_id}, "\n");
+				print ( "Title          ", $entry->{title}, "\n");
+				print ( "Entry_body     ", $entry->{entry_body}, "\n");
+				print ( "Created Date   ", $entry->{created}, "\n");
+				print ( "Updated Date   ", $entry->{updated}, "\n");
+			}
 		}
 		
 		
@@ -129,7 +130,23 @@ sub list_diaries{
 	
 }
 
-print "finish";
+sub delete_entry{
+	my ($user, $diary_name, $entry_id) = @_;
+	
+	my $diary = Intern::Diary::Service::Diary->find_diary_by_user_id_and_diary_name($db, +{
+		user_id		=> $user->{user_id},
+		diary_name	=> $diary_name,
+	});
+	
+	die 'diary is not found' unless defined $diary;
+	
+	my $entry = Intern::Diary::Service::Entry->delete_entry_by_diary_id_and_entry_id($db, +{
+		diary_id => $diary->{diary_id},
+		entry_id => $entry_id,
+	});
+	
+}
+
 
 __END__
 
