@@ -4,7 +4,7 @@ use warnings;
 use utf8;
 
 use Encode qw(encode_utf8 decode_utf8);
-use pod::Usage;
+use Pod::Usage;
 
 use FindBin;
 use lib "$FindBin::Bin/../lib";
@@ -34,7 +34,7 @@ my $command 	= shift @ARGV;
 my $db 			=  do{
 	#my $config = config->param('db')->{intern_diary};
 	DBIx::Sunny->connect("DBI:mysql:database=test_diary:host=localhost:port=3306",
-	"root","Root"
+	"root","RootPass=1"
 	) or die "cannot connect to Mysql: $DBI::errstr";
 };
 

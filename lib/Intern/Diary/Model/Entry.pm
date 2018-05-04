@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use utf8;
 
+use lib '/home/vpsuser/Test_Diary/lib';
+
 use Class::Accessor::Lite(
 	ro => [qw(
 		entry_id
@@ -23,7 +25,7 @@ sub created {
 
 sub update{
 	my ($self) = @_;
-	$self->{_updated} ||= eval {Intern::Diary::Util::datetime_from_db(
+	$self->{_updated} ||= eval { Intern::Diary::Util::datetime_from_db(
 		$self->{updated}
 	)};
 }

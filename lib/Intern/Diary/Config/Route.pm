@@ -1,9 +1,12 @@
-=put
 package Intern::Diary::Config::Route;
 
 use strict;
 use warnings;
 use utf8;
+
+BEGIN{
+	push(@INC,'/home/vpsuser/Test_Diary/lib');
+}
 
 use Intern::Diary::Config::Route::Declare;
 
@@ -50,4 +53,3 @@ sub make_router {
 }
 
 1;
-=cut

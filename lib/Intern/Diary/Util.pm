@@ -7,6 +7,10 @@ use utf8;
 use DateTime;
 use DateTime::Format::MySQL;
 
+BEGIN{
+	push(@INC,'/home/vpsuser/Test_Diary/lib');
+}
+
 use Intern::Diary::Config;
 
 sub now () {

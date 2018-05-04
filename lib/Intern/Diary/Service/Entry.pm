@@ -87,7 +87,7 @@ sub delete_entry{
 				entry_id = ?
 	], $entry->entry_id);
 	
-	print "deleted";
+	print "deleted\n";
 
 }
 
@@ -117,9 +117,9 @@ sub add_entry{
 	my $now = Intern::Diary::Util::now;
 	
 	my $entry = $db->query(q[
-		INSERT INTO entry (diary_id, title, entry_body, created, updated)
+		INSERT INTO entry (diary_id, title, entry_body, created)
 			VALUES(?)
-	], [$diary_id, $title, $entry_body, $now, $now]);
+	], [$diary_id, $title, $entry_body, $now]);
 	
 	
 	my $newEntry = $class->find_entry_by_title_and_diary_id($db, +{

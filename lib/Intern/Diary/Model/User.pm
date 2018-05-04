@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use utf8;
 
+use lib '/home/vpsuser/Test_Diary/lib';
+
 use Class::Accessor::Lite(
 	ro => [qw(
 		user_id
@@ -17,7 +19,7 @@ use Intern::Diary::Util;
 sub created {
 	my ($self) = @_;
 	$self->{_created} ||= eval{
-		Intern::Bookmark::Util::datetime_from_db($self->{created});
+		Intern::Diary::Util::datetime_from_db($self->{created});
 	};
 }
 

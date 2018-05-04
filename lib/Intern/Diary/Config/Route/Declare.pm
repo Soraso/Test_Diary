@@ -1,6 +1,4 @@
-=put
-
-package Intern::Bookmark::Config::Route::Declare;
+package Intern::Diary::Config::Route::Declare;
 use strict;
 use warnings;
 
@@ -35,4 +33,3 @@ sub connect ($$;$) {
 
 1;
 __END__
-=cut
